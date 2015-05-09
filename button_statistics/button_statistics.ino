@@ -11,14 +11,14 @@
  * Pous1 et Pous2 d'une durée d'environ 0.2s, séparées par une demi-seconde, 
  * sans rebonds de contacts.
  */
-#define TIME 200
+#define TIME 200 // the time over which we calculate which button was pushed more times
 
-const int L1 = 4; // 
-const int L2 = 5; // 
-const int P1 = 2; // 
-const int P2 = 3; // 
-int P1_pressed = 0; // 
-int P2_pressed= 0; // 
+const int L1 = 4; // Is lit if button P1 was pushed more times in 0.2s
+const int L2 = 5; // Is lit if button P2 was pushed more times in 0.2s
+const int P1 = 2; 
+const int P2 = 3;  
+int P1_pressed = 0; // counts the number of times P1 was pushed 
+int P2_pressed = 0; // counts the number of times P2 was pushed
 int start_time = 0;
 
 void setup()
@@ -36,6 +36,8 @@ void loop()
   digitalWrite(L2, LOW);
   start_time = millis();
   while (millis() - start_time < TIME) {
+    // because I'm using the LearnCBot layout & rules, it is considered that the
+    // buttons are pushed in the logic state 0 and otherwise are not pushed
     if (!digitalRead(P1)) {
       P1_pressed++;
     }
